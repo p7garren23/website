@@ -1,0 +1,83 @@
+<html>
+<head>
+<script language = "javaScript">
+
+var picList = ["images/slideshow/slide1steak.jpg",
+			   "images/slideshow/slide2chicken.jpg",
+			   "images/slideshow//slide3pork.jpg",
+			   "images/slideshow/slide4turkey.jpg",
+			   "images/slideshow/slide5salmon.jpg",
+			   "images/slideshow/slide6duck.jpg"]
+
+var clipList = ["sounds/slide1audio.mp3",
+				"sounds/slide2audio.mp3",
+				"sounds/slide3audio.mp3",
+				"sounds/slide4audio.mp3",
+				"sounds/slide5audio.mp3",
+				"sounds/slide6audio.mp3"]
+var counter = 0
+var timer;
+var autoStart = false
+
+function nextPic()
+{
+	
+	document.getElementById("display").src = picList[counter];
+	document.getElementById("player").src = clipList[counter];
+	document.getElementById("player").play();
+	counter++;
+	incrementCounter();
+}
+	
+function incrementCounter()
+{
+	if (counter == picList.length - 1)
+	{
+	counter = 0;
+	}
+}
+
+function run()
+{
+	if(autoStart == false)
+	{
+		autoStart = true;
+		document.getElementById("runButton").value = "Pause";
+	}
+	else
+	{
+		autoStart = false;
+		document.getElementById("runButton").value = "Run Slideshow";
+	}
+	
+	autoPlay();
+}
+	
+function autoPlay() 
+{
+	if(autoStart == true)
+	{
+	nextPic();
+	//var clipTime = clipList[counter].length;
+	timer = setTimeout("autoPlay()", 10000);
+	}
+	else
+	{
+	clearTimeout(timer);
+	}
+}
+
+</script>
+</head>
+<body>
+<center>
+<h1> Slideshow: The Best Meats </h1>
+click <a href="file:///C:/Users/agarren/Downloads/Website/index.html"> here </a> to go to my index page.
+<br/><br/>
+<input type="button" value = "Next picture" onclick="nextPic()"/>
+<input type="button" value = "Run Slideshow" onclick="run()" id="runButton" />
+<br/><br/>
+
+<img src="images/slideshow/slide1steak.jpg" id="display" />
+
+<audio id="player"> </audio>
